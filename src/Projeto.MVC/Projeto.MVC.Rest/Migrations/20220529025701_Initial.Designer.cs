@@ -20,7 +20,7 @@ namespace Projeto.MVC.Rest.Migrations
 
             modelBuilder.Entity("Projeto.MVC.Rest.Models.Department", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");

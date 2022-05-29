@@ -5,7 +5,7 @@ namespace Projeto.MVC.Rest.Models
 {
     public class SalesRecord
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public DateTime Date { get; set; }
         public double Amount { get; set; }
         public SaleStatus Status { get; set; }
@@ -15,7 +15,7 @@ namespace Projeto.MVC.Rest.Models
         {
         }
 
-        public SalesRecord(Guid id, DateTime date, double amount, SaleStatus status, Seller seller)
+        public SalesRecord(int id, DateTime date, double amount, SaleStatus status, Seller seller)
         {
             Id = id;
             Date = date;

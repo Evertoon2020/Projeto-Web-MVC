@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using Microsoft.EntityFrameworkCore;
+using Projeto.MVC.Rest.Data;
+using Projeto.MVC.Rest.Services;
 
 namespace Projeto.MVC.Rest
 {
@@ -34,14 +35,18 @@ namespace Projeto.MVC.Rest
             services.AddDbContext<Context>(options =>
                     options.UseMySql(Configuration.GetConnectionString("Context"),builder =>
                     builder.MigrationsAssembly("Projeto.MVC.Rest")));
+
+            services.AddScoped<SeedingService>();
+            services.AddScoped<SellerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                seedingService.Seed();
             }
             else
             {

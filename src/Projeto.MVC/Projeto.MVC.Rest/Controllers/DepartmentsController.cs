@@ -25,7 +25,7 @@ namespace Projeto.MVC.Rest.Controllers
         }
 
         // GET: Departments/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -57,7 +57,6 @@ namespace Projeto.MVC.Rest.Controllers
         {
             if (ModelState.IsValid)
             {
-                department.Id = Guid.NewGuid();
                 _context.Add(department);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -66,7 +65,7 @@ namespace Projeto.MVC.Rest.Controllers
         }
 
         // GET: Departments/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -86,7 +85,7 @@ namespace Projeto.MVC.Rest.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] Department department)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Department department)
         {
             if (id != department.Id)
             {
@@ -117,7 +116,7 @@ namespace Projeto.MVC.Rest.Controllers
         }
 
         // GET: Departments/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -137,7 +136,7 @@ namespace Projeto.MVC.Rest.Controllers
         // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var department = await _context.Department.FindAsync(id);
             _context.Department.Remove(department);
@@ -145,7 +144,7 @@ namespace Projeto.MVC.Rest.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartmentExists(Guid id)
+        private bool DepartmentExists(int id)
         {
             return _context.Department.Any(e => e.Id == id);
         }

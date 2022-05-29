@@ -11,7 +11,7 @@ namespace Projeto.MVC.Rest.Migrations
                 name: "Department",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

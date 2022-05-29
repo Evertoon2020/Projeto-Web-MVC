@@ -20,7 +20,7 @@ namespace Projeto.MVC.Rest.Migrations
 
             modelBuilder.Entity("Projeto.MVC.Rest.Models.Department", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name");
@@ -32,14 +32,14 @@ namespace Projeto.MVC.Rest.Migrations
 
             modelBuilder.Entity("Projeto.MVC.Rest.Models.SalesRecord", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Amount");
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<Guid?>("SellerId");
+                    b.Property<int?>("SellerId");
 
                     b.Property<int>("Status");
 
@@ -52,14 +52,14 @@ namespace Projeto.MVC.Rest.Migrations
 
             modelBuilder.Entity("Projeto.MVC.Rest.Models.Seller", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("BaseSalary");
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<Guid?>("DepartmentId");
+                    b.Property<int?>("DepartmentId");
 
                     b.Property<string>("Email");
 

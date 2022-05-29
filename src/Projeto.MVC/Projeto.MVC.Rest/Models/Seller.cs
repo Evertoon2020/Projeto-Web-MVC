@@ -6,7 +6,7 @@ namespace Projeto.MVC.Rest.Models
 {
     public class Seller
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
@@ -18,7 +18,7 @@ namespace Projeto.MVC.Rest.Models
         {
         }
 
-        public Seller(Guid id, string name, string email, DateTime birthDate, double baseSalary, Department department)
+        public Seller(int id, string name, string email, DateTime birthDate, double baseSalary, Department department)
         {
             Id = id;
             Name = name;
