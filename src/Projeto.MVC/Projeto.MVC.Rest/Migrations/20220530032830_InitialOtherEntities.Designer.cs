@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Projeto.MVC.Rest.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220529035017_OtherEntities")]
-    partial class OtherEntities
+    [Migration("20220530032830_InitialOtherEntities")]
+    partial class InitialOtherEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace Projeto.MVC.Rest.Migrations
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<int?>("DepartmentId");
+                    b.Property<int>("DepartmentId");
 
                     b.Property<string>("Email");
 
@@ -83,7 +83,8 @@ namespace Projeto.MVC.Rest.Migrations
                 {
                     b.HasOne("Projeto.MVC.Rest.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
