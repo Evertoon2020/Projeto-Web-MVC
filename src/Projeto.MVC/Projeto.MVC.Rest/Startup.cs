@@ -6,7 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Projeto.MVC.Rest.Data;
+using Projeto.MVC.Rest.Models;
 using Projeto.MVC.Rest.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using System.Collections.Generic;
 
 namespace Projeto.MVC.Rest
 {
@@ -33,8 +37,8 @@ namespace Projeto.MVC.Rest
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<Context>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("Context"),builder =>
-                    builder.MigrationsAssembly("Projeto.MVC.Rest")));
+                    options.UseMySql(Configuration.GetConnectionString("Context"), builder =>
+                     builder.MigrationsAssembly("Projeto.MVC.Rest")));
 
             services.AddScoped<SeedingService>();
             services.AddScoped<SellerService>();
@@ -44,6 +48,17 @@ namespace Projeto.MVC.Rest
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
         {
+            var enUs = new CultureInfo("en-US");
+            var localizationOptions = new RequestLocalizationOptions
+                {
+                DefaultRequestCulture = new RequestCulture(enUs),
+                SupportedCultures = new List<CultureInfo> { enUs },
+                SupportedUICultures = new List<CultureInfo> { enUs }
+
+            };
+
+            app.UseRequestLocalization(localizationOptions);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

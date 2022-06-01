@@ -1,4 +1,6 @@
-﻿using Projeto.MVC.Rest.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Projeto.MVC.Rest.Models;
+using Projeto.MVC.Rest.Services.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +10,7 @@ namespace Projeto.MVC.Rest.Services
     {
         private readonly Context _context;
 
-        public SellerService (Context context)
+        public SellerService(Context context)
         {
             _context = context;
         }
@@ -18,7 +20,7 @@ namespace Projeto.MVC.Rest.Services
             return _context.Seller.ToList();
         }
 
-        public void Insert (Seller obj)
+        public void Insert(Seller obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
@@ -26,15 +28,32 @@ namespace Projeto.MVC.Rest.Services
 
         public Seller FindById(int id)
         {
-            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
         }
 
-        public void Remove (int id)
+        public void Remove(int id)
         {
             var obj = _context.Seller.Find(id);
             _context.Seller.Remove(obj);
             _context.SaveChanges();
 
+        }
+
+        public void update(Seller obj)
+        {
+            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id not found");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }
